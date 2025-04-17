@@ -11,11 +11,10 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 bat '''
-                    // python --version
-                    // python -m venv venv
+                    C:\Users\User\AppData\Local\Programs\Python\Python313\python.exe -m venv venv
                     call venv\\Scripts\\activate
                     python -m pip install --upgrade pip
-                    pip install -r requirements.txt
+                    pip install pytest
                 '''
             }
         }
@@ -23,9 +22,9 @@ pipeline {
         stage('Run Tests') {
             steps {
                 bat '''
-//              call venu\\Scripts\\activate
-//              pytest test.py
-//              '''
+                  call venv\\Scripts\\activate
+                  pytest test.py
+              '''
             }
         }
 
@@ -34,23 +33,11 @@ pipeline {
                 echo 'Deploying Application...'
 
                 bat '''
-                call venv\\Scripts\\activate
-                python add.py
+                    call venv\\Scripts\\activate
+                    python add.py
                 '''
             }
         }
     }
 
-    // 🔥 This is where your `post` block goes — inside `pipeline`, but **outside** `stages`
-    post {
-        always {
-            echo 'Pipeline finished (success or fail).'
-        }
-        success {
-            echo 'Pipeline succeeded.'
-        }
-        failure {
-            echo 'Pipeline failed.'
-        }
-    }
-}
+   
