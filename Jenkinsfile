@@ -4,7 +4,7 @@ pipeline{
     stages {
         stage('Checkout Code') {
             steps {
-                git  crendtialsId : 'Angelic203',url: 'https://github.com/Angelic203/RCB.git', branch='main'
+                git url: 'https://github.com/Angelic203/RCB.git', branch='main'
             }
         }
 
