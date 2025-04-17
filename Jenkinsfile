@@ -1,20 +1,20 @@
-pipeline{
+pipeline {
     agent any
 
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git  crendtialsId : 'Angelic203',url: 'https://github.com/Angelic203/RCB.git', branch='main'
+                git url: 'https://github.com/Angelic203/RCB.git', branch: 'main'
             }
         }
 
         stage('Install Dependencies') {
             steps {
                 bat '''
-                
-                call venu\\Script\\activate
-                pip install --upgrade pip
-                pip install -r requirement.txt
+                    C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\python.exe -m venv venv
+                    call venv\\Scripts\\activate
+                    python -m pip install --upgrade pip
+                    pip install pytest
                 '''
             }
         }
@@ -22,9 +22,9 @@ pipeline{
         stage('Run Tests') {
             steps {
                 bat '''
-                call venu\\Scripts\\activate
-                pytest test.py
-                '''
+                  call venv\\Scripts\\activate
+                  pytest test.py
+              '''
             }
         }
 
@@ -34,18 +34,9 @@ pipeline{
 
                 bat '''
                     call venv\\Scripts\\activate
-                    python add.py
-                    '''
+                    C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\python.exe add.py
+                '''
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        failure {
-            echo 'Pipeline failed!'
         }
     }
 }
