@@ -8,13 +8,22 @@ pipeline{
             }
         }
 
+        // stage('Install Dependencies') {
+        //     steps {
+        //         bat '''
+                
+        //         call venu\\Script\\activate
+        //         pip install --upgrade pip
+        //         pip install -r requirement.txt
+        //         '''
         stage('Install Dependencies') {
             steps {
                 bat '''
-                
-                call venu\\Script\\activate
-                pip install --upgrade pip
-                pip install -r requirement.txt
+                python --version
+                python -m venv venv
+                call venv\\Scripts\\activate
+                python -m pip install --upgrade pip
+                pip install -r requirements.txt
                 '''
             }
         }
@@ -38,14 +47,16 @@ pipeline{
                     '''
             }
         }
-    }
+    
 
-    post {
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        failure {
-            echo 'Pipeline failed!'
+        post {
+            success {
+                echo 'Pipeline succeeded!'
+            }
+            failure {
+                echo 'Pipeline failed!'
+            }
         }
     }
 }
+
